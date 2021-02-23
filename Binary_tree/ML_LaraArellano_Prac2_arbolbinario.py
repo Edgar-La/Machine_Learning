@@ -2,48 +2,43 @@ import numpy as np
 import random as rnd
 import pandas as pd
 
-#Open file in readig mode
-def abri_arc(nombre_archivo):
-  f = open(nombre_archivo, 'r')
-  return f
-#Save data file into matrix
-def datos_a_matriz(f):
-  matriz = []
-  matriz = [line.split(',') for line in f]
-  return matriz
-#Close file
-def cerrar_archivo(f):
-  f.close()
+#Create a cols x rows matrix with 0-100 random numbers
+def random_numbers_matrix(cols, rows):
+	matrix = []
+	for n in range(rows):
+		aux = []
+		for i in range(cols):
+			aux.append(rnd.randint(0,100))
+		matrix.append(aux)
+	return matrix
 
-#Save matrix items into a list
-def matriz_a_vector(matriz):
+#Save the random numbers matrix into csv file
+def matrix_to_csv_file(matrix):
+	df = pd.DataFrame(matrix)
+	df.to_csv('aleatorios.csv',index = False, header = False)
+
+#Open csv file and save into matrix
+def csv_file_to_matrix(name_file):
+	df = pd.read_csv(name_file,header = None)
+	matrix = np.array(df)
+	return matrix
+
+#Fill array with every item in matrix
+def matrix_to_vector(matrix):
 	aleatorios = []
-	for n in range(len(matriz)):
+	for n in range(len(matrix)):
 		for i in range(4):
-			aleatorios.append(matriz[n][i])
-	return aleatorios
-
-#String to int conversion for every list item
-def str_a_int(aleatorios):
-  for n in range(len(aleatorios)):
-    aleatorios[n] = int(aleatorios[n])
-    #print(aleatorios[n])
-
-#List to numpy array conversion
-def conver_numpy(aleatorios):
-  aleatorios = np.array(aleatorios)
-  return aleatorios
-
-
-
+			aleatorios.append(matrix[n][i])
+	return np.array(aleatorios)
 ###########################################################################################
-class Nodo:
+#Create class Node
+class Node:
 	def __init__(self, dato):
 		self.left = None
 		self.right = None
 		self.dato = dato
 
-#Funcion para insertar elementos al arbol
+#Insert elements into binary tree
 def insertar(root, node):
 	if root is None:
 		root = node
@@ -64,23 +59,20 @@ def in_order(root):
 		in_order(root.left)
 		print(root.dato)
 		in_order(root.right)
+
+
+
 ###########################################################################################
-
-
 #Calling functions section
-f = abri_arc('aleatorios.csv')
-matriz = datos_a_matriz(f)
-cerrar_archivo(f)
-aleatorios = matriz_a_vector(matriz)
-str_a_int(aleatorios)
-aleatorios = conver_numpy(aleatorios)
+
+#matrix = random_numbers_matrix(4, 8)
+#matrix_to_csv_file(matrix)
+matrix = csv_file_to_matrix('aleatorios.csv')
+aleatorios = matrix_to_vector(matrix)
 print(aleatorios)
 
-
-
-
-root = Nodo(aleatorios[0])
+root = Node(aleatorios[0])
 for i in range(1,len(aleatorios)):
-	insertar(root,Nodo(aleatorios[i]))
+	insertar(root,Node(aleatorios[i]))
 
 in_order(root)
