@@ -91,11 +91,11 @@ def post_order(node, post_order_list):
 	post_order_list.append(node.dato)
 ###########################################################################################
 
+#Create csv file with the traversed lists
 def traversed_lists_to_csv_file(in_order_list, pre_order_list, post_order_list):
 	taversed_lists = np.array([in_order_list, pre_order_list, post_order_list])
 	df_traversed = pd.DataFrame(taversed_lists)
 	df_traversed.to_csv('recorridos.csv', index = False, header = False)
-
 
 #------------------------  Calling functions section  -----------------------------
 
