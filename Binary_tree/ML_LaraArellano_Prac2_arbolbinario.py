@@ -1,5 +1,4 @@
-#Lara Arellano Edgar
-#Feb 23, 2021
+#Lara Arellano Edgar	|	Feb 23, 2021
 #Binary Trees & Traversed algorithms
 
 import numpy as np
@@ -29,14 +28,18 @@ def csv_file_to_matrix(name_file):
 	return matrix
 
 #Fill array with every item in matrix
-def matrix_to_vector(matrix):
+def matrix_to_vector(matrix, cols):
 	aleatorios = []
 	for n in range(len(matrix)):
-		for i in range(4):
+		for i in range(cols):
 			aleatorios.append(matrix[n][i])
 	return np.array(aleatorios)
 
-#The following lines are the interest topic i.e: traversed algorithms for binary trees
+#Based in
+#1)	A. (Sep 07, 2020). 4 Ways To Traverse Binary Trees (with animations!). DEV Community. 
+#	https://dev.to/abdisalan_js/4-ways-to-traverse-binary-trees-with-animations-5bi5
+#2) Ortiz, J.(Feb 19, 2020). Crear Función para Insertar un Nodo en un Árbol Binario de Búsqueda
+#	https://www.youtube.com/watch?v=r2ZwT07C-pI
 ###########################################################################################
 #Create class Node
 class Node:
@@ -62,27 +65,30 @@ def insert(root, node):
 				insert(root.left, node)
 #In-order algorithm
 def in_order(node, in_order_list):
-	if node is not None:
-		in_order(node.left, in_order_list)
-		#print(node.dato)
-		in_order_list.append(node.dato)
-		in_order(node.right, in_order_list)
+	if node == None:
+		return
+	in_order(node.left, in_order_list)
+	#print(node.dato)
+	in_order_list.append(node.dato)
+	in_order(node.right, in_order_list)
 
 #Pre-order algorithm
 def pre_order(node, pre_order_list):
-	if node is not None:
-		#print(node.dato)
-		pre_order_list.append(node.dato)
-		pre_order(node.left, pre_order_list)
-		pre_order(node.right, pre_order_list)
+	if node == None:
+		return
+	#print(node.dato)
+	pre_order_list.append(node.dato)
+	pre_order(node.left, pre_order_list)
+	pre_order(node.right, pre_order_list)
 
 #Post-order algorithm
 def post_order(node, post_order_list):
-	if node is not None:
-		post_order(node.left, post_order_list)
-		post_order(node.right, post_order_list)
-		#print(node.dato)
-		post_order_list.append(node.dato)
+	if node == None:
+		return
+	post_order(node.left, post_order_list)
+	post_order(node.right, post_order_list)
+	#print(node.dato)
+	post_order_list.append(node.dato)
 ###########################################################################################
 
 def traversed_lists_to_csv_file(in_order_list, pre_order_list, post_order_list):
@@ -99,7 +105,7 @@ def traversed_lists_to_csv_file(in_order_list, pre_order_list, post_order_list):
 
 #name indicates what this 2 lines does
 matrix = csv_file_to_matrix('aleatorios.csv')
-aleatorios = matrix_to_vector(matrix)
+aleatorios = matrix_to_vector(matrix, 4)
 
 
 #Flll the tree with values
@@ -115,7 +121,6 @@ post_order(root, post_order_list)
 
 #the name indicates
 traversed_lists_to_csv_file(in_order_list, pre_order_list, post_order_list)
-
 
 
 # Verification section
