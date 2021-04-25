@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
+
+from k_NN_EdLa import run_kNN
+
 
 
 #Convert pandas datframe to numpy matrix
@@ -24,7 +28,7 @@ def clean_datasets(datasets):
 
 
 
-def plotter_function(X, y_label, datasets_names):
+def plotter_function(X, y_label, datasets_names, xx, yy, Z):
 	plt.figure(figsize=(5, 5))
 	plt.subplot(341)
 	plt.scatter(X[0][:,0], X[0][:,1],  c=y_label[0], s=2, cmap=colormap)
@@ -38,6 +42,13 @@ def plotter_function(X, y_label, datasets_names):
 	plt.scatter(X[2][:,0], X[2][:,1],  c=y_label[2], s=2, cmap=colormap)
 	plt.title(datasets_names[2])
 
+	plt.subplot(342)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+	plt.scatter(X[0][:, 0], X[0][:, 1], c=y_label[0], cmap=cmap_bold,edgecolor='k')
+
+
 	plt.show()
 
 datasets_names = ['dataset_classifiers1.csv', 'dataset_classifiers2.csv', 'dataset_classifiers3.csv']
@@ -47,5 +58,7 @@ names = ['MEDC', 'k-NN', 'SVC']
 
 datasets = generate_datasets(datasets_names)
 X, y_label = clean_datasets(datasets)
+xx, yy, Z = run_kNN(X[0], y_label[0])
+
 #print(y_label[2])
-plotter_function(X,y_label, names)
+plotter_function(X, y_label, names, xx, yy, Z)
