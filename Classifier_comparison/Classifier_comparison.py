@@ -46,4 +46,7 @@ X = crear_puntos()
 centros_random, centros_recalculados, clusters, labels_cluster = run_kMeans(X, k_CENTROS, n_MUESTRAS)
 
 #graficar_puntos_generados(X, centros_random, centros_recalculados, clusters, labels_cluster)
+plt.scatter(X[:,0], X[:,1], c=clusters, s=50, cmap='spring')
+plt.scatter(centros_recalculados[:,0], centros_recalculados[:,1], c='black', s=200, alpha = .5, label = 'Centroides recalculados')
+plt.show()
 input()
