@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
 from k_NN_EdLa import run_kNN
+from SVC_EdLa import run_SVC
+from MEDC_EdLa import run_MEDC
 
 
 
@@ -30,35 +32,100 @@ def clean_datasets(datasets):
 
 def plotter_function(X, y_label, datasets_names, xx, yy, Z):
 	plt.figure(figsize=(5, 5))
-	plt.subplot(341)
+
+	plt.subplot(3,4,1)
 	plt.scatter(X[0][:,0], X[0][:,1],  c=y_label[0], s=2, cmap=colormap)
 	plt.title(datasets_names[0])
-
-	plt.subplot(345)
-	plt.scatter(X[1][:,0], X[1][:,1],  c=y_label[1], s=2, cmap=colormap)
-	plt.title(datasets_names[1])
-
-	plt.subplot(349)
-	plt.scatter(X[2][:,0], X[2][:,1],  c=y_label[2], s=2, cmap=colormap)
-	plt.title(datasets_names[2])
-
-	plt.subplot(342)
+	
+	
+	plt.subplot(3,4,2)
 	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
 	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
-	plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
-	plt.scatter(X[0][:, 0], X[0][:, 1], c=y_label[0], cmap=cmap_bold,edgecolor='k')
+	plt.pcolormesh(xx_MEDC[0], yy_MEDC[0], Z_MEDC[0], cmap=cmap_light)
+	plt.scatter(X[0][:, 0], X[0][:, 1], c=y_label[0], s=7, cmap=cmap_bold,edgecolor='k')	
+	plt.title(datasets_names[1])
 
+	
+	plt.subplot(3,4,3)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx[0], yy[0], Z[0], cmap=cmap_light)
+	plt.scatter(X[0][:, 0], X[0][:, 1], c=y_label[0], s=7, cmap=cmap_bold,edgecolor='k')	
+	plt.title(datasets_names[2])
+
+	plt.subplot(3,4,4)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx_SVC[0], yy_SVC[0], Z_SVC[0], cmap=cmap_light)
+	plt.scatter(X[0][:, 0], X[0][:, 1], c=y_label[0], s=7, cmap=cmap_bold,edgecolor='k')	
+	plt.title(datasets_names[3])
+
+	plt.subplot(3,4,5)
+	plt.scatter(X[1][:,0], X[1][:,1],  c=y_label[1], s=2, cmap=colormap)
+
+	plt.subplot(3,4,6)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx_MEDC[1], yy_MEDC[1], Z_MEDC[1], cmap=cmap_light)
+	plt.scatter(X[1][:, 0], X[1][:, 1], c=y_label[1], s=7, cmap=cmap_bold,edgecolor='k')	
+
+	plt.subplot(3,4,7)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx[1], yy[1], Z[1], cmap=cmap_light)
+	plt.scatter(X[1][:, 0], X[1][:, 1], c=y_label[1], s=7, cmap=cmap_bold,edgecolor='k')
+
+	plt.subplot(3,4,8)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx_SVC[1], yy_SVC[1], Z_SVC[1], cmap=cmap_light)
+	plt.scatter(X[1][:, 0], X[1][:, 1], c=y_label[1], s=7, cmap=cmap_bold,edgecolor='k')	
+
+	plt.subplot(3,4,9)
+	plt.scatter(X[2][:,0], X[2][:,1],  c=y_label[2], s=2, cmap=colormap)
+
+	plt.subplot(3,4,10)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx_MEDC[2], yy_MEDC[2], Z_MEDC[2], cmap=cmap_light)
+	plt.scatter(X[2][:, 0], X[2][:, 1], c=y_label[2], s=7, cmap=cmap_bold,edgecolor='k')	
+
+	plt.subplot(3,4,11)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx[2], yy[2], Z[2], cmap=cmap_light)
+	plt.scatter(X[2][:, 0], X[2][:, 1], c=y_label[2], s=7, cmap=cmap_bold,edgecolor='k')
+
+	plt.subplot(3,4,12)
+	cmap_light = ListedColormap(['#FFAAAA', '#ffcc99'])
+	cmap_bold = ListedColormap(['#FF0000', '#ff9933'])  
+	plt.pcolormesh(xx_SVC[2], yy_SVC[2], Z_SVC[2], cmap=cmap_light)
+	plt.scatter(X[2][:, 0], X[2][:, 1], c=y_label[2], s=7, cmap=cmap_bold,edgecolor='k')	
 
 	plt.show()
 
 datasets_names = ['dataset_classifiers1.csv', 'dataset_classifiers2.csv', 'dataset_classifiers3.csv']
 colormap = plt.cm.RdYlBu
-names = ['MEDC', 'k-NN', 'SVC']
-
+names = ['Original Data','MEDC', 'k-NN', 'SVC']
+h = .5	################################################
 
 datasets = generate_datasets(datasets_names)
 X, y_label = clean_datasets(datasets)
-xx, yy, Z = run_kNN(X[0], y_label[0])
 
-#print(y_label[2])
+
+xx = []; yy = []; Z = []
+for n in range(len(datasets)):
+	xx_, yy_, Z_ = run_kNN(X[n], y_label[n], h)
+	xx.append(xx_); yy.append(yy_); Z.append(Z_)
+
+xx_SVC = []; yy_SVC = []; Z_SVC = []
+for n in range(len(datasets)):
+	xx_s, yy_s, Z_s = run_SVC(X[n], y_label[n], h)
+	xx_SVC.append(xx_s); yy_SVC.append(yy_s); Z_SVC.append(Z_s)
+
+xx_MEDC = []; yy_MEDC = []; Z_MEDC = []
+for n in range(len(datasets)):
+	xx_MEDC_, yy_MEDC_, Z_MEDC_ = run_MEDC(X[n], y_label[n], h)
+	xx_MEDC.append(xx_MEDC_); yy_MEDC.append(yy_MEDC_); Z_MEDC.append(xx_MEDC_);
+
 plotter_function(X, y_label, names, xx, yy, Z)
