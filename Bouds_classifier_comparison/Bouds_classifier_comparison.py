@@ -34,7 +34,7 @@ def clean_datasets(datasets):
 datasets_names = ['dataset_classifiers1.csv', 'dataset_classifiers2.csv', 'dataset_classifiers3.csv']
 #colormap = plt.cm.RdYlBu
 names = ['Original Data','MEDC', 'k-NN', 'SVC']
-h = .5	################################################
+h = .07	################################################
 
 datasets = generate_datasets(datasets_names)
 X, y_label = clean_datasets(datasets)
