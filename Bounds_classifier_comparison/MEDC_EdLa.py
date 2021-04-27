@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from statistics import mean
 
 #Vectores promedio para cada una de las 3 clases
@@ -74,18 +73,13 @@ def predict_distance(data, vectores_promedio):
 	return predicted_labels
 
 
-def run_MEDC(X, y_label, xx, yy, h):
+def run_MEDC(X, y_label, xx, yy):
   vectores_promedio = Vectores_Promedio(X, y_label)
   distance_matrix = distancia_euclidiana(X, vectores_promedio)
   predicted_labels = asignar_membresia(distance_matrix)
-  '''
-  x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-  y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-  xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-  '''
+
   A = predict_distance(np.c_[xx.ravel(), yy.ravel()], vectores_promedio)
   Z = A.reshape(xx.shape)
 
 
-  #return xx, yy, Z
   return Z

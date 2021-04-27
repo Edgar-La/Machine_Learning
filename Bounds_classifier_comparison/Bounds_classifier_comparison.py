@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 '''
+import os; os.system('clear')
+
 from Read_datasets_EdLa import *
 from MEDC_EdLa import run_MEDC
 from k_NN_EdLa import run_kNN
@@ -14,7 +16,7 @@ from Plotter_EdLa import *
 
 datasets_names = ['dataset_classifiers1.csv', 'dataset_classifiers2.csv', 'dataset_classifiers3.csv']
 names = ['Original Data','MEDC', 'k-NN', 'SVC']
-h = .09
+h = .05
 
 X, y_label = read_datasets(datasets_names)
 
@@ -28,19 +30,13 @@ for n in range(len(X)):
 	xx.append(xx_); yy.append(yy_);
 
 for n in range(len(X)):
-	#xx_MEDC, yy_MEDC, 
-	Z_MEDC = run_MEDC(X[n], y_label[n], xx[n], yy[n], h)
-	#xx.append(xx_MEDC); yy.append(yy_MEDC);
+	Z_MEDC = run_MEDC(X[n], y_label[n], xx[n], yy[n])
 	Z.append(Z_MEDC);
 
-	#xx_kNN, yy_kNN, 
-	Z_kNN = run_kNN(X[n], y_label[n], xx[n], yy[n], h)
-	#xx.append(xx_kNN); yy.append(yy_kNN);
+	Z_kNN = run_kNN(X[n], y_label[n], xx[n], yy[n], kNeighbors = 5)
 	Z.append(Z_kNN)
 
-	#xx_SVC, yy_SVC, 
-	Z_SVC = run_SVC(X[n], y_label[n], xx[n], yy[n], h)
-	#xx.append(xx_SVC); yy.append(yy_SVC);
+	Z_SVC = run_SVC(X[n], y_label[n], xx[n], yy[n], Gamma = 0.1, c = 10)
 	Z.append(Z_SVC)
 
 
