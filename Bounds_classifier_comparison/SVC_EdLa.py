@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.svm import SVC
 
 
-
+#This method is call by the MAIN SCRIPT
 def run_SVC(X, y_label, xx, yy, Gamma = 0.1, c = 10):
 	svc = SVC(gamma = Gamma, C = c)
 	svc.fit(X, y_label)

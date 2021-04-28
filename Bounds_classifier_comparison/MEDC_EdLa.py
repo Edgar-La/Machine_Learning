@@ -73,6 +73,15 @@ def predict_distance(data, vectores_promedio):
 	return predicted_labels
 
 
+
+
+
+
+
+
+
+#This method is call by the MAIN SCRIP
+#############################################################################
 def run_MEDC(X, y_label, xx, yy):
   vectores_promedio = Vectores_Promedio(X, y_label)
   distance_matrix = distancia_euclidiana(X, vectores_promedio)
@@ -83,3 +92,4 @@ def run_MEDC(X, y_label, xx, yy):
 
 
   return Z
+#############################################################################

@@ -4,15 +4,13 @@ from statistics import mean
 #Help from: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html
 from sklearn.model_selection import KFold
 
-
 from MEDC_EdLa import *
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 
 
 
-
-
+#This method calulate the accuracy
 def calculate_ACC(confusion_matrix, y_label):
 	diag = 0
 	for i in range(len(confusion_matrix)):
@@ -20,7 +18,8 @@ def calculate_ACC(confusion_matrix, y_label):
 	ACC = diag/len(y_label)
 	return ACC
 
-
+#This method is call by the MAIN SCRIPT
+#############################################################################
 mean_ACC = []
 def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10):
 	kf = KFold(n_splits = splits)
@@ -67,6 +66,7 @@ def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10)
 	print('\n\n\n\n')
 
 	print(np.array(names))
+	print('#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#')
 	print(np.array(mean_ACC))
-
-	print('\n\n\n\n')
+	print('#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#')
+	print('\n')

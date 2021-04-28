@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
+
+#This method is call by the MAIN SCRIPT
+#############################################################################
 def plotter_function(X, y_label, datasets_names, xx, yy, Z):
 	colormap = plt.cm.RdYlBu 
 	cm = plt.cm.RdBu
@@ -38,3 +41,4 @@ def plotter_function(X, y_label, datasets_names, xx, yy, Z):
 
 	plt.tight_layout()		
 	plt.show()
+	

@@ -42,9 +42,9 @@ for n in range(len(X)):
 	Z_SVC = run_SVC(X[n], y_label[n], xx[n], yy[n], Gamma = Gamma_, c = c_)
 	Z.append(Z_SVC)
 
-#This method make the plot
-plotter_function(X, y_label, names, xx, yy, Z)
-
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
 get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_)
+
+#This method make the plot
+plotter_function(X, y_label, names, xx, yy, Z)
