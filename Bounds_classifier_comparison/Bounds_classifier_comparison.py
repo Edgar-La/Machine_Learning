@@ -7,21 +7,25 @@ from SVC_EdLa import run_SVC
 from Accuracy_kFold_EdLa import *
 from Plotter_EdLa import *
 
+################ The user can modify this values ################
+#--------------------------------------------------------------------------
+datasets_names = ['Data/dataset_classifiers1.csv',		#Datasets names
+					'Data/dataset_classifiers2.csv',
+					'Data/dataset_classifiers3.csv']
 
+h = .09					#how accurate will the mesh be 
+k_Neighbors = 5			#Neighbors for the k-NN method
+Gamma_ = 0.1			#Value for SVC
+c_ = 10					#Value for SVC
+folds = 10
+#--------------------------------------------------------------------------
 
-datasets_names = ['dataset_classifiers1.csv', 'dataset_classifiers2.csv', 'dataset_classifiers3.csv']
-names = ['MEDC', 'k-NN', 'SVC']
-h = .09
+names = ['MEDC', 'k-NN', 'SVC']						#Classifiers names
 
-k_Neighbors = 5
-Gamma_ = 0.1
-c_ = 10
-
-
+#This method read all datasets
 X, y_label = read_datasets(datasets_names)
 
-
-
+#Loop that run the methods for every dataset
 xx = []; yy = []; Z = []
 for n in range(len(X)):
 	x_min, x_max = X[n][:, 0].min() - 1, X[n][:, 0].max() + 1
@@ -29,7 +33,6 @@ for n in range(len(X)):
 	xx_, yy_ = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 	xx.append(xx_); yy.append(yy_);
 
-for n in range(len(X)):
 	Z_MEDC = run_MEDC(X[n], y_label[n], xx[n], yy[n])
 	Z.append(Z_MEDC);
 
@@ -39,7 +42,9 @@ for n in range(len(X)):
 	Z_SVC = run_SVC(X[n], y_label[n], xx[n], yy[n], Gamma = Gamma_, c = c_)
 	Z.append(Z_SVC)
 
-
+#This method make the plot
 plotter_function(X, y_label, names, xx, yy, Z)
 
-get_ACC(X, y_label, names, splits = 10, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_)
+#This method obtains the mean accuracy for every datasets and every method
+#but using --CROSS VALIDATION--
+get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_)
