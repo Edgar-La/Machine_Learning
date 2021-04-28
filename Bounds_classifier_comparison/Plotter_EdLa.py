@@ -8,6 +8,7 @@ def plotter_function(X, y_label, datasets_names, xx, yy, Z):
 	plt.figure(figsize=(5, 5))
 	k = 0
 	i =-1
+	datasets_names.insert(0, 'Original Data')
 	first_iter = True
 	for n in range(len(X)):
 		k+=1
