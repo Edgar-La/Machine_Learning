@@ -19,9 +19,9 @@ h = .09					#how accurate will the mesh be
 k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
-folds = 10
-N_Epochs = 1
-Learning_step = .005
+folds = 10				#Folder number in cross validation
+N_Epochs = 10			#Value for perceptron
+Learning_step = .005	#Learning ratio
 #--------------------------------------------------------------------------
 
 names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl']						#Classifiers names
