@@ -20,8 +20,8 @@ k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
 folds = 10				#Folder number in cross validation
-N_Epochs = 10			#Value for perceptron
-Learning_step = .005	#Learning ratio
+N_Epochs = 1			#Value for perceptron
+Learning_step = .5	#Learning ratio
 #--------------------------------------------------------------------------
 
 names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl']						#Classifiers names
@@ -54,7 +54,7 @@ for n in range(len(X)):
 
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
+#get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
 
 #This method make the plot
 plotter_function(X, y_label, names, xx, yy, Z)
