@@ -1,4 +1,4 @@
-import os; os.system('clear')		#Clean terminal
+#import os; os.system('clear')		#Clean terminal
 
 from Read_datasets_EdLa import *	#Import self scripts
 from MEDC_EdLa import run_MEDC
@@ -6,6 +6,7 @@ from k_NN_EdLa import run_kNN
 from SVC_EdLa import run_SVC
 from Accuracy_kFold_EdLa import *
 from Plotter_EdLa import *
+#from Perceptron_module import run_Perceptron
 
 ################ The user can modify this values ################
 #--------------------------------------------------------------------------
@@ -42,9 +43,30 @@ for n in range(len(X)):
 	Z_SVC = run_SVC(X[n], y_label[n], xx[n], yy[n], Gamma = Gamma_, c = c_)
 	Z.append(Z_SVC)
 
+	#Z_Perceptron = run_Perceptron(X[n], y_label[n], xx[n], yy[n])
+	#Z.append(Z_Perceptron)
+
+#print(xx[0])
+#print(yy[0])
+'''
+print(len(Z[0]))
+print(len(Z[1]))
+print(len(Z[2]))
+print(len(Z[3]))
+print(len(Z[4]))
+print(len(Z[5]))
+print(len(Z[6]))
+print(len(Z[7]))
+print(len(Z[8]))
+
+print(len(Z[0]))
+print(Z[0])
+print(len(Z[0][0]))
+print(Z[0][0])
+'''
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_)
+#get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_)
 
 #This method make the plot
-plotter_function(X, y_label, names, xx, yy, Z)
+#plotter_function(X, y_label, names, xx, yy, Z)
