@@ -23,7 +23,7 @@ def calculate_ACC(confusion_matrix, y_label):
 #This method is call by the MAIN SCRIPT
 #############################################################################
 mean_ACC = []
-def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10, Epochs=1, L_step = .005):
+def get_ACC(X, y_label, names, datasets_names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10, Epochs=1, L_step = .005):
 	kf = KFold(n_splits = splits)
 
 	for n in range(len(X)):
@@ -90,10 +90,11 @@ def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10,
 
 	df = pd.DataFrame(np.array(mean_ACC))
 	df.columns = names
+	df.insert(0, 'datasets', datasets_names)
 	print(df)
 
-	#colorscale = [[0, ], [], []]
+	
 	fig = go.create_table(df)
 	#Probably need the orca package, try (linux) : conda install -c plotly plotly-orca
-	fig.write_image('Accuracies.png', scale = 2)
+	fig.write_image('Accuracies.png', scale = 2, width=1000)
 	fig.show()
