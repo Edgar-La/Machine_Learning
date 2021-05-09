@@ -67,26 +67,23 @@ class Perceptron(object):
 
 
 
-def run_Perceptron(X, y_label, xx, yy):
+def run_Perceptron(X, y_label, xx, yy, Epochs=1, L_step = .005):
 	train_x = pd.DataFrame({'x1':X[:,0],'x2':X[:,1]})
 	train_y = pd.DataFrame({'':y_label})
 
 
 	my_perceptron = Perceptron(0.1,0.1)
-	my_perceptron.fit(train_x, train_y, epochs=1, step=0.005)
+	my_perceptron.fit(train_x, train_y, epochs=Epochs, step=L_step)
 
 	data = np.c_[xx.ravel(), yy.ravel()]
 	test_x = pd.DataFrame({'x1':data[:,0],'x2':data[:,1]})
 
 	pred_y = np.array(test_x.apply(lambda x: my_perceptron.predict(x.x1, x.x2), axis=1))
 	Z = pred_y.reshape(xx.shape)
-	print(len(pred_y))
-	print(len(xx.shape))
-	print(xx.shape)
-	print(len(Z))
+
 	return Z
 
-
+'''
 from Read_datasets_EdLa import read_datasets
 datasets_names = ['Data/dataset_classifiers1.csv',		#Datasets names
 					'Data/dataset_classifiers2.csv',
@@ -99,6 +96,5 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, .09), np.arange(y_min, y_max, .09))
 
 
 
-#Z = run_Perceptron(train_x, train_y, xx, yy)
 pred_ = run_Perceptron(X[0], y_label[0], xx, yy)
-#print(pred_)
+'''

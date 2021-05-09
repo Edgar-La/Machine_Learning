@@ -7,6 +7,7 @@ from sklearn.model_selection import KFold
 from MEDC_EdLa import *
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from Perceptron_module import *
 
 
 
@@ -21,11 +22,11 @@ def calculate_ACC(confusion_matrix, y_label):
 #This method is call by the MAIN SCRIPT
 #############################################################################
 mean_ACC = []
-def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10):
+def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10, Epochs=1, L_step = .005):
 	kf = KFold(n_splits = splits)
 
 	for n in range(len(X)):
-		Accuracies = [[], [], []]
+		Accuracies = [[], [], [], []]
 		for train_index, test_index in kf.split(X[n]):
 			X_train, X_test = X[n][train_index], X[n][test_index]
 			y_train, y_test = y_label[n][train_index], y_label[n][test_index]
@@ -59,14 +60,25 @@ def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10)
 			confusion_matrix_svc = skl.confusion_matrix(y_test, predicted_labels_svc)
 			Accuracies[2].append(calculate_ACC(confusion_matrix_svc, predicted_labels_svc))
 
+			##############
+			train_x = pd.DataFrame({'x1':X_train[:,0],'x2':X_train[:,1]})
+			train_y = pd.DataFrame({'':y_train})
 
 
-		mean_ACC.append([np.mean(Accuracies[0]), np.mean(Accuracies[1]), np.mean(Accuracies[2])])
-	
-	print('\n\n\n\n')
+			my_perceptron = Perceptron(0.1,0.1)
+			my_perceptron.fit(train_x, train_y, epochs=Epochs, step=L_step)
 
-	print(np.array(names))
-	print('#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#')
-	print(np.array(mean_ACC))
-	print('#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#')
-	print('\n')
+			#data = np.c_[xx.ravel(), yy.ravel()]
+			test_x = pd.DataFrame({'x1':X_test[:,0],'x2':X_test[:,1]})
+
+			predicted_labels_Perceptron = np.array(test_x.apply(lambda x: my_perceptron.predict(x.x1, x.x2), axis=1))
+			confusion_matrix_Perceptron = skl.confusion_matrix(y_test, predicted_labels_Perceptron)
+			Accuracies[3].append(calculate_ACC(confusion_matrix_Perceptron, predicted_labels_Perceptron))
+
+
+		mean_ACC.append([np.mean(Accuracies[0]), np.mean(Accuracies[1]), np.mean(Accuracies[2]), np.mean(Accuracies[3])])
+
+
+	df = pd.DataFrame(np.array(mean_ACC))
+	df.columns = names
+	print(df)

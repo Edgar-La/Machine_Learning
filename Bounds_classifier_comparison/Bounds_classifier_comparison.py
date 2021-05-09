@@ -6,7 +6,7 @@ from k_NN_EdLa import run_kNN
 from SVC_EdLa import run_SVC
 from Accuracy_kFold_EdLa import *
 from Plotter_EdLa import *
-#from Perceptron_module import run_Perceptron
+from Perceptron_module import run_Perceptron
 
 ################ The user can modify this values ################
 #--------------------------------------------------------------------------
@@ -19,9 +19,11 @@ k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
 folds = 10
+N_Epochs = 10
+Learning_step = .005
 #--------------------------------------------------------------------------
 
-names = ['MEDC', 'k-NN', 'SVC']						#Classifiers names
+names = ['MEDC', 'k-NN', 'SVC', 'Perceptron']						#Classifiers names
 
 #This method read all datasets
 X, y_label = read_datasets(datasets_names)
@@ -43,30 +45,12 @@ for n in range(len(X)):
 	Z_SVC = run_SVC(X[n], y_label[n], xx[n], yy[n], Gamma = Gamma_, c = c_)
 	Z.append(Z_SVC)
 
-	#Z_Perceptron = run_Perceptron(X[n], y_label[n], xx[n], yy[n])
-	#Z.append(Z_Perceptron)
+	Z_Perceptron = run_Perceptron(X[n], y_label[n], xx[n], yy[n], Epochs=N_Epochs, L_step = Learning_step)
+	Z.append(Z_Perceptron)
 
-#print(xx[0])
-#print(yy[0])
-'''
-print(len(Z[0]))
-print(len(Z[1]))
-print(len(Z[2]))
-print(len(Z[3]))
-print(len(Z[4]))
-print(len(Z[5]))
-print(len(Z[6]))
-print(len(Z[7]))
-print(len(Z[8]))
-
-print(len(Z[0]))
-print(Z[0])
-print(len(Z[0][0]))
-print(Z[0][0])
-'''
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-#get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_)
+get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
 
 #This method make the plot
-#plotter_function(X, y_label, names, xx, yy, Z)
+plotter_function(X, y_label, names, xx, yy, Z)
