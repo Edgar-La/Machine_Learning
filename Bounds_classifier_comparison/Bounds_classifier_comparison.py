@@ -54,7 +54,7 @@ for n in range(len(X)):
 
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-#get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
+get_ACC(X, y_label, names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
 
 #This method make the plot
-plotter_function(X, y_label, names, xx, yy, Z)
+#plotter_function(X, y_label, names, xx, yy, Z)

@@ -10,6 +10,7 @@ from sklearn.svm import SVC
 from Perceptron_module import *
 from Percep_skl_module import *
 
+import plotly.figure_factory as go
 
 #This method calulate the accuracy
 def calculate_ACC(confusion_matrix, y_label):
@@ -90,3 +91,9 @@ def get_ACC(X, y_label, names, splits = 10, kNeighbors = 5, Gamma = 0.1, c = 10,
 	df = pd.DataFrame(np.array(mean_ACC))
 	df.columns = names
 	print(df)
+
+	#colorscale = [[0, ], [], []]
+	fig = go.create_table(df)
+	#Probably need the orca package, try (linux) : conda install -c plotly plotly-orca
+	fig.write_image('Accuracies.png', scale = 2)
+	fig.show()
