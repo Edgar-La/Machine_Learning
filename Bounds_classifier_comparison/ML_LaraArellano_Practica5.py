@@ -20,8 +20,8 @@ k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
 folds = 10				#Folder number in cross validation
-N_Epochs = 1			#Value for perceptron
-Learning_step = .5	#Learning ratio
+N_Epochs = 50			#Value for perceptron
+Learning_step = .005	#Learning ratio
 #--------------------------------------------------------------------------
 
 names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl']						#Classifiers names
