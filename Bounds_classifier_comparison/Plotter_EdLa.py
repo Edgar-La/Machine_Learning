@@ -10,7 +10,7 @@ def plotter_function(X, y_label, datasets_names, xx, yy, Z, Gamma= 0.1, c=10):
 	colormap = plt.cm.RdYlBu 
 	cm = plt.cm.RdBu
 	cm_bright = ListedColormap(['#FF0000', '#0000FF'])
-	plt.figure(figsize=(5, 5))
+	plt.figure(figsize=(20, 10))
 	k = 0
 	i =-1
 	datasets_names.insert(0, 'Original Data')
@@ -63,6 +63,6 @@ def plotter_function(X, y_label, datasets_names, xx, yy, Z, Gamma= 0.1, c=10):
 
 		first_iter = False
 
-	plt.tight_layout()		
+	#plt.tight_layout()		
 	plt.show()
 	
