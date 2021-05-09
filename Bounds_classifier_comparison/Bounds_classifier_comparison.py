@@ -7,6 +7,7 @@ from SVC_EdLa import run_SVC
 from Accuracy_kFold_EdLa import *
 from Plotter_EdLa import *
 from Perceptron_module import run_Perceptron
+from Percep_skl_module import run_Percep_skl
 
 ################ The user can modify this values ################
 #--------------------------------------------------------------------------
@@ -19,11 +20,11 @@ k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
 folds = 10
-N_Epochs = 10
+N_Epochs = 1
 Learning_step = .005
 #--------------------------------------------------------------------------
 
-names = ['MEDC', 'k-NN', 'SVC', 'Perceptron']						#Classifiers names
+names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl']						#Classifiers names
 
 #This method read all datasets
 X, y_label = read_datasets(datasets_names)
@@ -47,6 +48,9 @@ for n in range(len(X)):
 
 	Z_Perceptron = run_Perceptron(X[n], y_label[n], xx[n], yy[n], Epochs=N_Epochs, L_step = Learning_step)
 	Z.append(Z_Perceptron)
+
+	Z_Percep_skl = run_Percep_skl(X[n], y_label[n], xx[n], yy[n], L_step = Learning_step)
+	Z.append(Z_Percep_skl)
 
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--

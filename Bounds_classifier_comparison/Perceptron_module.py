@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.metrics import confusion_matrix
 
 
-class Perceptron(object):
+class Perceptron_(object):
     """
     Simple implementation of the perceptron algorithm
     """
@@ -72,7 +72,7 @@ def run_Perceptron(X, y_label, xx, yy, Epochs=1, L_step = .005):
 	train_y = pd.DataFrame({'':y_label})
 
 
-	my_perceptron = Perceptron(0.1,0.1)
+	my_perceptron = Perceptron_(0.1,0.1)
 	my_perceptron.fit(train_x, train_y, epochs=Epochs, step=L_step)
 
 	data = np.c_[xx.ravel(), yy.ravel()]
