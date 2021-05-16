@@ -21,9 +21,9 @@ h = .09		#.09			#how accurate will the mesh be
 k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
-folds = 5	#10			#Folder number in cross validation
-N_Epochs = 2	#50		#Value for perceptron
-Learning_step = .5 #.005		#Learning ratio
+folds = 10	#10			#Folder number in cross validation
+N_Epochs = 10	#50		#Value for perceptron
+Learning_step = .005 #.005		#Learning ratio
 #--------------------------------------------------------------------------
 
 names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl', 'FFNN']						#Classifiers names
@@ -32,7 +32,7 @@ names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl', 'FFNN']						#Classi
 X, y_label = read_datasets(datasets_names)
 
 #Loop that run the methods for every dataset
-xx = []; yy = []; Z = []
+xx = []; yy = []; Z = []; ctr=-1
 for n in range(len(X)):
 	x_min, x_max = X[n][:, 0].min() - 1, X[n][:, 0].max() + 1
 	y_min, y_max = X[n][:, 1].min() - 1, X[n][:, 1].max() + 1
@@ -57,10 +57,9 @@ for n in range(len(X)):
 	Z_FFNN = run_FFNN(X[n], y_label[n], xx[n], yy[n], L_step = Learning_step)
 	Z.append(Z_FFNN)
 
-
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-get_ACC(X, y_label, names, datasets_names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
+#get_ACC(X, y_label, names, datasets_names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
 
 #This method make the plot
-#plotter_function(X, y_label, names, xx, yy, Z)
+plotter_function(X, y_label, names, xx, yy, Z)

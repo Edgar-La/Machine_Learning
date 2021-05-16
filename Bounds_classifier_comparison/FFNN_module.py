@@ -2,10 +2,12 @@
 
 import numpy as np
 import pandas as pd
+#This is for avoid future warning: RuntimeWarning: overflow encountered in exp
+from scipy.special import expit
 
 def sigmoid(s):
     # Activation function
-    return 1 / (1 + np.exp(-s))
+    return 1 / (1 + np.exp(-expit(s)))
 
 
 def sigmoid_prime(s):
@@ -64,6 +66,7 @@ class FFNN(object):
             output = self.forward(X)
             self.backward(X, y, output, step)
 
+######################################################################
 
 def convert_values(X, y_label):
 	train_x = pd.DataFrame(data=X, columns=["x1", "x2"])
@@ -82,7 +85,6 @@ def get_binary_labels(pred_y):
 def run_FFNN(X, y_label, xx, yy, Epochs=1, L_step = .005):
 	train_x, train_y = convert_values(X, y_label)
 
-	#####################################
 	my_network = FFNN()
 	my_network.fit(train_x, train_y, epochs=Epochs, step=L_step)
 
@@ -92,7 +94,7 @@ def run_FFNN(X, y_label, xx, yy, Epochs=1, L_step = .005):
 	
 	pred_y = test_x.apply(my_network.forward, axis=1)
 	
-	pred_y_binary =  get_binary_labels(pred_y)
+	pred_y_binary = get_binary_labels(pred_y)
 	Z = pred_y_binary.reshape(xx.shape)
 	return Z
 	
