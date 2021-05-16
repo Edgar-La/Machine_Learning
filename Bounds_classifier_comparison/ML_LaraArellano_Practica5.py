@@ -22,7 +22,7 @@ k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
 folds = 10	#10			#Folder number in cross validation
-N_Epochs = 10	#50		#Value for perceptron
+N_Epochs = 50	#50		#Value for perceptron
 Learning_step = .005 #.005		#Learning ratio
 #--------------------------------------------------------------------------
 
