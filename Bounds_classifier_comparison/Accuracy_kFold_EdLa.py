@@ -91,7 +91,10 @@ def get_ACC(X, y_label, names, datasets_names, splits = 10, kNeighbors = 5, Gamm
 			test_X_FFNN = pd.DataFrame(data=X_test, columns=["x1", "x2"])
 
 			my_network = FFNN()
-			my_network.fit(train_x_FFNN, train_y_FFNN, epochs=Epochs, step=L_step)
+			if n==3: #Only Dataset 4 will run with 1000 epochs
+				my_network.fit(train_x_FFNN, train_y_FFNN, epochs=1000, step=L_step)
+			else:
+				my_network.fit(train_x_FFNN, train_y_FFNN, epochs=Epochs, step=L_step)
 
 			pred_y = test_X_FFNN.apply(my_network.forward, axis=1)
 	
@@ -106,11 +109,14 @@ def get_ACC(X, y_label, names, datasets_names, splits = 10, kNeighbors = 5, Gamm
 
 	df = pd.DataFrame(np.array(mean_ACC))
 	df.columns = names
-	df.insert(0, 'datasets', datasets_names)
+	df.insert(0, 'datasets', ['Dataset1',		#Datasets names
+					'Dataset2',
+					'Dataset3',
+					'Dataset4'])
 	print(df)
 
 	
 	fig = go.create_table(df)
 	#Probably need the orca package, try (linux) : conda install -c plotly plotly-orca
-	#fig.write_image('Accuracies.png', scale = 2, width=1000)
+	fig.write_image('FFNN.png', scale = 2, width=1000)
 	fig.show()
