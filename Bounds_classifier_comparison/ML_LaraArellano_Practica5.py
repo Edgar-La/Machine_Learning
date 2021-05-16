@@ -12,10 +12,10 @@ from FFNN_module import *
 
 ################ The user can modify this values ################
 #--------------------------------------------------------------------------
-datasets_names = ['Data/dataset_classifiers1.csv',		#Datasets names
-					'Data/dataset_classifiers2.csv',
-					'Data/dataset_classifiers3.csv',
-					'Data/dataset_classifiers4.csv']
+datasets_names = ['Datasets/dataset_classifiers1.csv',		#Datasets names
+					'Datasets/dataset_classifiers2.csv',
+					'Datasets/dataset_classifiers3.csv',
+					'Datasets/dataset_classifiers4.csv']
 
 h = .09					#how accurate will the mesh be 
 k_Neighbors = 5			#Neighbors for the k-NN method
@@ -62,7 +62,7 @@ for n in range(len(X)):
 
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-get_ACC(X, y_label, names, datasets_names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
+#get_ACC(X, y_label, names, datasets_names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
 
 #This method make the plot
-#plotter_function(X, y_label, names, xx, yy, Z)
+plotter_function(X, y_label, names, xx, yy, Z)
