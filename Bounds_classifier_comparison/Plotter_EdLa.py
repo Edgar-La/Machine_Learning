@@ -15,26 +15,33 @@ def plotter_function(X, y_label, datasets_names, xx, yy, Z, Gamma= 0.1, c=10):
 	i =-1
 	datasets_names.insert(0, 'Original Data')
 	first_iter = True
+	cols = len(datasets_names)
+	rows = 4
+
 	for n in range(len(X)):
+		#Original
 		k+=1
-		plt.subplot(3,6,k)
+		plt.subplot(rows,cols,k)
 		plt.scatter(X[n][:,0], X[n][:,1],  c=y_label[n], s=2, cmap=cm_bright)
 		if first_iter: plt.title(datasets_names[0])
 
+		#MEDC
 		k+=1; i+=1
-		plt.subplot(3,6,k)
+		plt.subplot(rows,cols,k)
 		plt.pcolormesh(xx[n], yy[n], Z[i], cmap=colormap)
 		plt.scatter(X[n][:, 0], X[n][:, 1], c=y_label[n], s=7, cmap=cm_bright,edgecolor='k')	
 		if first_iter: plt.title(datasets_names[1])
 
+		#k-NN
 		k+=1; i+=1
-		plt.subplot(3,6,k) 
+		plt.subplot(rows,cols,k) 
 		plt.pcolormesh(xx[n], yy[n], Z[i], cmap=colormap)
 		plt.scatter(X[n][:, 0], X[n][:, 1], c=y_label[n], s=7, cmap=cm_bright,edgecolor='k')	
 		if first_iter: plt.title(datasets_names[2])
 
+		#SVC
 		k+=1; i+=1
-		plt.subplot(3,6,k) 
+		plt.subplot(rows,cols,k) 
 		plt.pcolormesh(xx[n], yy[n], Z[i], cmap=colormap)
 		plt.scatter(X[n][:, 0], X[n][:, 1], c=y_label[n], s=7, cmap=cm_bright,edgecolor='k')	
 		####### Support vectors in plot
@@ -49,17 +56,27 @@ def plotter_function(X, y_label, datasets_names, xx, yy, Z, Gamma= 0.1, c=10):
 		#######
 		if first_iter: plt.title(datasets_names[3])
 
+		#Perceptron
 		k+=1; i+=1
-		plt.subplot(3,6,k) 
+		plt.subplot(rows,cols,k) 
 		plt.pcolormesh(xx[n], yy[n], Z[i], cmap=colormap)
 		plt.scatter(X[n][:, 0], X[n][:, 1], c=y_label[n], s=7, cmap=cm_bright,edgecolor='k')	
 		if first_iter: plt.title(datasets_names[4])
 
+		#Perceptron skl
 		k+=1; i+=1
-		plt.subplot(3,6,k) 
+		plt.subplot(rows,cols,k) 
 		plt.pcolormesh(xx[n], yy[n], Z[i], cmap=colormap)
 		plt.scatter(X[n][:, 0], X[n][:, 1], c=y_label[n], s=7, cmap=cm_bright,edgecolor='k')	
 		if first_iter: plt.title(datasets_names[5])
+
+		#FFNN
+		k+=1; i+=1
+		plt.subplot(rows,cols,k) 
+		plt.pcolormesh(xx[n], yy[n], Z[i], cmap=colormap)
+		plt.scatter(X[n][:, 0], X[n][:, 1], c=y_label[n], s=7, cmap=cm_bright,edgecolor='k')	
+		if first_iter: plt.title(datasets_names[6])
+
 
 		first_iter = False
 

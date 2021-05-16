@@ -8,23 +8,25 @@ from Accuracy_kFold_EdLa import *
 from Plotter_EdLa import *
 from Perceptron_module import run_Perceptron
 from Percep_skl_module import run_Percep_skl
+from FFNN_module import *
 
 ################ The user can modify this values ################
 #--------------------------------------------------------------------------
 datasets_names = ['Data/dataset_classifiers1.csv',		#Datasets names
 					'Data/dataset_classifiers2.csv',
-					'Data/dataset_classifiers3.csv']
+					'Data/dataset_classifiers3.csv',
+					'Data/dataset_classifiers4.csv']
 
-h = .09					#how accurate will the mesh be 
+h = .09		#.09			#how accurate will the mesh be 
 k_Neighbors = 5			#Neighbors for the k-NN method
 Gamma_ = 0.1			#Value for SVC
 c_ = 10					#Value for SVC
 folds = 10				#Folder number in cross validation
-N_Epochs = 50			#Value for perceptron
-Learning_step = .005	#Learning ratio
+N_Epochs = 30	#50		#Value for perceptron
+Learning_step = .005 #.005		#Learning ratio
 #--------------------------------------------------------------------------
 
-names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl']						#Classifiers names
+names = ['MEDC', 'k-NN', 'SVC', 'Perceptron', 'Percep_skl', 'FFNN']						#Classifiers names
 
 #This method read all datasets
 X, y_label = read_datasets(datasets_names)
@@ -52,9 +54,13 @@ for n in range(len(X)):
 	Z_Percep_skl = run_Percep_skl(X[n], y_label[n], xx[n], yy[n], L_step = Learning_step)
 	Z.append(Z_Percep_skl)
 
+	Z_FFNN = run_FFNN(X[n], y_label[n], xx[n], yy[n], L_step = Learning_step)
+	Z.append(Z_FFNN)
+
+
 #This method obtains the mean accuracy for every datasets and every method
 #but using --CROSS VALIDATION--
-get_ACC(X, y_label, names, datasets_names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
+#get_ACC(X, y_label, names, datasets_names, splits = folds, kNeighbors = k_Neighbors, Gamma = Gamma_, c = c_, Epochs=N_Epochs, L_step = Learning_step)
 
 #This method make the plot
 plotter_function(X, y_label, names, xx, yy, Z)
