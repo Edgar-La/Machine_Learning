@@ -9,6 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from Perceptron_module import *
 from Percep_skl_module import *
+from FFNN_module import *
 
 import plotly.figure_factory as go
 
@@ -27,7 +28,7 @@ def get_ACC(X, y_label, names, datasets_names, splits = 10, kNeighbors = 5, Gamm
 	kf = KFold(n_splits = splits)
 
 	for n in range(len(X)):
-		Accuracies = [[], [], [], [], []]
+		Accuracies = [[], [], [], [], [], []]
 		for train_index, test_index in kf.split(X[n]):
 			X_train, X_test = X[n][train_index], X[n][test_index]
 			y_train, y_test = y_label[n][train_index], y_label[n][test_index]
@@ -85,7 +86,22 @@ def get_ACC(X, y_label, names, datasets_names, splits = 10, kNeighbors = 5, Gamm
 			confusion_matrix_Percep_skl = skl.confusion_matrix(y_test, predicted_labels_Percep_skl)
 			Accuracies[4].append(calculate_ACC(confusion_matrix_Percep_skl, predicted_labels_Percep_skl))
 
-		mean_ACC.append([np.mean(Accuracies[0]), np.mean(Accuracies[1]), np.mean(Accuracies[2]), np.mean(Accuracies[3]), np.mean(Accuracies[4])])
+			##############
+			train_x_FFNN, train_y_FFNN = convert_values(X_train, y_train)
+			test_X_FFNN = pd.DataFrame(data=X_test, columns=["x1", "x2"])
+
+			my_network = FFNN()
+			my_network.fit(train_x_FFNN, train_y_FFNN, epochs=Epochs, step=L_step)
+
+			pred_y = test_X_FFNN.apply(my_network.forward, axis=1)
+	
+			predicted_labels_FFNN = get_binary_labels(pred_y)
+
+			confusion_matrix_FFNN = skl.confusion_matrix(y_test, predicted_labels_FFNN)
+			Accuracies[5].append(calculate_ACC(confusion_matrix_FFNN, predicted_labels_FFNN))
+
+
+		mean_ACC.append([np.mean(Accuracies[0]), np.mean(Accuracies[1]), np.mean(Accuracies[2]), np.mean(Accuracies[3]), np.mean(Accuracies[4]), np.mean(Accuracies[5])])
 
 
 	df = pd.DataFrame(np.array(mean_ACC))

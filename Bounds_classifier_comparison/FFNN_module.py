@@ -65,13 +65,22 @@ class FFNN(object):
             self.backward(X, y, output, step)
 
 
-
-def run_FFNN(X, y_label, xx, yy, Epochs=1, L_step = .005):
+def convert_values(X, y_label):
 	train_x = pd.DataFrame(data=X, columns=["x1", "x2"])
 	train_y = []
 	for n in range(len(y_label)):
 		train_y.append([int(y_label[n])])
 	train_y = np.array(train_y)
+	return train_x, train_y
+
+def get_binary_labels(pred_y):
+	pred_y_ = [i[0] for i in pred_y]
+	threshold = 0.5
+	pred_y_binary = [0 if i > threshold else 1 for i in pred_y_]
+	return np.array(pred_y_binary)
+
+def run_FFNN(X, y_label, xx, yy, Epochs=1, L_step = .005):
+	train_x, train_y = convert_values(X, y_label)
 
 	#####################################
 	my_network = FFNN()
@@ -83,12 +92,7 @@ def run_FFNN(X, y_label, xx, yy, Epochs=1, L_step = .005):
 	
 	pred_y = test_x.apply(my_network.forward, axis=1)
 	
-	pred_y_ = [i[0] for i in pred_y]
-
-	threshold = 0.5
-	pred_y_binary = [0 if i > threshold else 1 for i in pred_y_]
-	pred_y_binary =  np.array(pred_y_binary)
+	pred_y_binary =  get_binary_labels(pred_y)
 	Z = pred_y_binary.reshape(xx.shape)
 	return Z
 	
-#Z = run_FFNN(X[0], y_label[0], xx[0], yy[0], Epochs=1, L_step = .005)
