@@ -118,5 +118,5 @@ def get_ACC(X, y_label, names, datasets_names, splits = 10, kNeighbors = 5, Gamm
 	
 	fig = go.create_table(df)
 	#Probably need the orca package, try (linux) : conda install -c plotly plotly-orca
-	fig.write_image('FFNN.png', scale = 2, width=1000)
+	#fig.write_image('FFNN.png', scale = 2, width=1000)
 	fig.show()

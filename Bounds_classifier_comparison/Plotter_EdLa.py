@@ -7,8 +7,9 @@ from sklearn.svm import SVC
 #This method is call by the MAIN SCRIPT
 #############################################################################
 def plotter_function(X, y_label, datasets_names, xx, yy, Z, Gamma= 0.1, c=10):
-	colormap = plt.cm.RdYlBu 
-	cm = plt.cm.RdBu
+	#colormap = plt.cm.RdYlBu 
+	colormap = ListedColormap(['#FF9999', '#99CCFF'])
+	#cm = plt.cm.RdBu
 	cm_bright = ListedColormap(['#FF0000', '#0000FF'])
 	plt.figure(figsize=(20, 10))
 	k = 0
